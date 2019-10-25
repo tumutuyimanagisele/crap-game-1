@@ -48,24 +48,18 @@ def play_game():
 
 
     while bank > 0 and bet > 0:
-        roll=random.randint(1,6)
-        roll2=random.randint(1,6)
-        roll_total=roll+roll2
+        roll=random.randint(2,12)
 
         print(f" you have rolled a {roll}")
-        print(f" you have rolled a {roll2}")
-        print(f" you have rolled a {roll_total}")
 
-
-
-        if roll_total==7 or roll_total==11:
+        if roll==7 or roll==11:
             print(" you won!")
             bank= bank + bet
             print(f"your current amount is ${bank}")
             exit()
 
 
-        elif roll_total==2 or roll_total==3 or roll_total==12:
+        elif roll==2 or roll==3 or roll==12:
             print("you lost!")
 
             bank= bank-bet
@@ -73,23 +67,21 @@ def play_game():
             pre_game()
 
         else:
-            new_roll = random.randint(1,6)
-            new_roll2 = random.randint(1,6)
-            new_roll_total = new_roll +  new_roll2
+            new_roll = random.randint(2,12)
 
-            while roll != new_roll_total and new_roll_total != 7:
+            while roll != new_roll and new_roll != 7:
                 print(f"You have rolled a {new_roll}, we'll keep going.")
-                bank = bank - bet
+                bank = bank + new_roll
                 print(f"your current amount is {bank}")
+                new_roll = random.randint(2,12)
 
 
-
-            if new_roll_total == roll:
-                print(f"You got {new_roll_total}!")
+            if new_roll == roll:
+                print(f"You got {new_roll}!")
                 print("you won!")
                 pre_game()
 
-            elif new_roll_total == 7:
+            elif new_roll == 7:
                 print("You lost !")
                 pre_game()
 
