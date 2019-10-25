@@ -23,6 +23,7 @@ def pre_game():
 
 pre_game()
 # im going to ask the player their bankroll amount and how much they would like to bet and fromthat they will roll the dice
+
 def play_game():
 
     print(" what is your bankroll AMOUNT?")
@@ -30,6 +31,7 @@ def play_game():
     while bank <= 0:
         print(" you cant play with that amount ,try again ")
         bank=input()
+        pre_game()
 
     print(f" how much would you like to  bet  from your  ${bank} this round?")
     bet= int(input())
@@ -37,21 +39,33 @@ def play_game():
     while bet <= 0:
         print("too low! try again.")
         bet = int(input())
+        pre_game()
+
+    while bet > bank:
+        print("you bet too high than your bank roll, try again! ")
+        pre_game()
+
 
 
     while bank > 0 and bet > 0:
-        roll= random.randint(2,12)
+        roll=random.randint(1,6)
+        roll2=random.randint(1,6)
+        roll_total=roll+roll2
 
         print(f" you have rolled a {roll}")
+        print(f" you have rolled a {roll2}")
+        print(f" you have rolled a {roll_total}")
 
-        if roll==7 or roll==11:
+
+
+        if roll_total==7 or roll_total==11:
             print(" you won!")
-            bank= bank+ bet
+            bank= bank + bet
             print(f"your current amount is ${bank}")
-            pre_game()
+            exit()
 
 
-        elif roll==2 or roll==3 or roll==12:
+        elif roll_total==2 or roll_total==3 or roll_total==12:
             print("you lost!")
 
             bank= bank-bet
@@ -59,18 +73,24 @@ def play_game():
             pre_game()
 
         else:
-            new_roll = random.randint(2,12)
-            while roll != new_roll and new_roll != 7:
+            new_roll = random.randint(1,6)
+            new_roll2 = random.randint(1,6)
+            new_roll_total = new_roll +  new_roll2
+
+            while roll != new_roll_total and new_roll_total != 7:
                 print(f"You have rolled a {new_roll}, we'll keep going.")
-                new_roll = random.randint(2,12)
-            if new_roll == roll:
-                print(f"You got {new_roll}!")
+                bank = bank - bet
+                print(f"your current amount is {bank}")
+
+
+
+            if new_roll_total == roll:
+                print(f"You got {new_roll_total}!")
                 print("you won!")
                 pre_game()
 
-            elif new_roll == 7:
+            elif new_roll_total == 7:
                 print("You lost !")
                 pre_game()
-
 
 play_game()
